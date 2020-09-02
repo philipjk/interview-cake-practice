@@ -1,4 +1,9 @@
 def merge_sort(inl: list) -> list:
+    # NOTE: merge-sort has O(nlog(n)) runtime complexity and only O(n) space
+    # complexity. During the devide pass, sublists are passed by reference, so
+    # no additional space is taken. During the conquer pass, every stack frame
+    # only takes n space and it is destroyed after return, so the totoal space
+    # comcplexity is always O(n).
     length = len(inl)
     if length == 1:
         return inl
