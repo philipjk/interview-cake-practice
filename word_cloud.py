@@ -15,4 +15,3 @@ class WordCloudData(object):
             else:
                 outl.append()
                 word = []
-        for word in outl:
