@@ -1,8 +1,6 @@
 import timeit
 import random
 
-a = range(100000)
-
 
 def get_random(floor, ceiling):
     return random.randrange(floor, ceiling + 1)
@@ -36,7 +34,16 @@ def shuffle_ic(the_list):
     pass
 
 
-"""fl = {key: 0 for key in range(1, 6)}
+for i in range(100):
+    a = list(range(10000))
+    shuffle_ic(a)
+
+# compare runtimes (ic is way faster because there is no "scooting")
+# $ time python inplace_shuffle.py
+
+"""
+# check uniformity
+fl = {key: 0 for key in range(1, 6)}
 
 for i in range(1000000):
     a = [1, 2, 3, 4, 6]
@@ -44,6 +51,4 @@ for i in range(1000000):
     for ind, k in enumerate(a):
         if k == 6:
             fl[ind + 1] += 1
-
-
 print(fl)"""
