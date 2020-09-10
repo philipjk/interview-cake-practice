@@ -26,7 +26,7 @@ right_right_right.insert_right(9)
 
 
 def DFS(parent_node, value):
-    # find if value is in tree
+    # find if a value is in the tree with DFS (recursive)
     if parent_node.value == value:
         return True
     children = [child for child in [parent_node.left, parent_node.right]
@@ -38,6 +38,7 @@ def DFS(parent_node, value):
 
 
 def BFS(nodes, value):
+    # find if a value is in the tree with BFS (recursive)
     if not nodes:
         return False
     children = []
@@ -55,12 +56,36 @@ def BFS(nodes, value):
     return False
 
 
-print(DFS(tree, 11))
-print(BFS([tree], 11))
+# print(DFS(tree, 11))
+# print(BFS([tree], 11))
+tree = BinaryTreeNode(3)
+left = tree.insert_left(4)
+right = tree.insert_right(2)
+
+
+def min_max_depth(node, layers):
+    # determine min and max depths with DFS (recursive)
+    layers += 1
+    children = [n for n in [node.left, node.right] if n]
+    if not len(children):
+        return layers, layers
+    depths = []
+    for n in children:
+        result = min_max_depth(n, layers)
+        depths.append(result[0])
+        depths.append(result[1])
+    return max(depths), min(depths)
 
 
 def is_balanced(tree_root):
 
     # Determine if the tree is superbalanced
-    delta = 0
-    return True
+    max_depth, min_depth = min_max_depth(tree_root, 0)
+
+    if max_depth - min_depth > 1:
+        return False
+    else:
+        return True
+
+
+print(is_balanced(tree))
