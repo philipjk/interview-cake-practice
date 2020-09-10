@@ -80,12 +80,35 @@ def min_max_depth(node, layers):
 def is_balanced(tree_root):
 
     # Determine if the tree is superbalanced
-    max_depth, min_depth = min_max_depth(tree_root, 0)
 
-    if max_depth - min_depth > 1:
+    depth = 1
+    parent_nodes = [tree_root]
+    leaf_depths = []
+    while len(parent_nodes):
+        children_nodes = []
+        for node in parent_nodes:
+            for n in [node.left, node.right]:
+                if n:
+                    children_nodes.append(n)
+            if not (node.right or node.left):
+                leaf_depths.append(depth)
+        parent_nodes = children_nodes
+        depth += 1
+    if max(leaf_depths) - min(leaf_depths) > 1:
         return False
     else:
         return True
 
+
+tree = BinaryTreeNode(1)
+left = tree.insert_left(2)
+left_left = left.insert_left(3)
+left.insert_right(4)
+left_left.insert_left(5)
+left_left.insert_right(6)
+right = tree.insert_right(7)
+right_right = right.insert_right(8)
+right_right_right = right_right.insert_right(9)
+right_right_right.insert_right(10)
 
 print(is_balanced(tree))
