@@ -37,20 +37,26 @@ def DFS(parent_node, value):
     return False
 
 
-print(DFS(tree, 11))
-
-
 def BFS(nodes, value):
-    children = [l_or_r
-                for l_or_r in [node.right, node.left]
-                for node in nodes]
+    if not nodes:
+        return False
+    children = []
     for node in nodes:
         if node.value == value:
             return True
-    BFS(children)
+        if node.right:
+            children.append(node.right)
+        if node.left:
+            children.append(node.left)
+
+    if BFS(children, value):
+        return True
+
+    return False
 
 
-# print(BFS([tree], 6))
+print(DFS(tree, 11))
+print(BFS([tree], 11))
 
 
 def is_balanced(tree_root):
