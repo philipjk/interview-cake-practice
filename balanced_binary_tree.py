@@ -106,24 +106,23 @@ def min_max_depth(node, layers):
     return max(depths), min(depths)
 
 
-def is_balanced(tree_root):
+def is_balanced(tree_root, value):
 
     # Determine if the tree is superbalanced
+    stack = [(tree_root, 1)]
+    depths = []
+    while len(stack):
+        node, depth = stack.pop()
+        children = [n for n in [node.right, node.left] if n]
+        if len(children):
+            for child in children:
+                stack.append((child, depth + 1))
+        else:
+            max_depth = max(depths + [depth])
+            min_depth = min(depths + [depth])
+            depths = [max_depth, min_depth]
 
-    depth = 1
-    parent_nodes = [tree_root]
-    leaf_depths = []
-    while len(parent_nodes):
-        children_nodes = []
-        for node in parent_nodes:
-            for n in [node.left, node.right]:
-                if n:
-                    children_nodes.append(n)
-            if not (node.right or node.left):
-                leaf_depths.append(depth)
-        parent_nodes = children_nodes
-        depth += 1
-    if max(leaf_depths) - min(leaf_depths) > 1:
+    if max_depth - min_depth > 1:
         return False
     else:
         return True
