@@ -16,13 +16,14 @@ class BinaryTreeNode(object):
 
 tree = BinaryTreeNode(1)
 left = tree.insert_left(2)
-right = tree.insert_right(4)
-left.insert_left(3)
-left_right = left.insert_right(7)
-left_right.insert_right(8)
-right_right = right.insert_right(5)
-right_right_right = right_right.insert_right(6)
-right_right_right.insert_right(9)
+left_left = left.insert_left(3)
+left.insert_right(4)
+left_left.insert_left(5)
+left_left.insert_right(6)
+right = tree.insert_right(7)
+right_right = right.insert_right(8)
+right_right_right = right_right.insert_right(9)
+right_right_right.insert_right(10)
 
 
 def DFS(parent_node, value):
@@ -34,6 +35,20 @@ def DFS(parent_node, value):
     for child in children:
         if DFS(child, value):
             return True
+    return False
+
+
+def iterative_DFS(parent_node, value):
+    # find if a value is in the tree with DFS (iterative)
+    stack = [parent_node]
+    while len(stack) > 0:
+        node = stack.pop()
+        if node.value == value:
+            return True
+        children = [n for n in [node.right, node.left] if n]
+        if len(children):
+            for child in children:
+                stack.append(child)
     return False
 
 
@@ -56,11 +71,25 @@ def BFS(nodes, value):
     return False
 
 
+def iterative_BFS(tree_root, value):
+    # find if a value is in the tree with BFS (iterative)
+    queue = [tree_root]
+    i = 0
+    while i < len(queue):
+        node = queue[i]
+        i += 1
+        if node.value == value:
+            return True
+        for n in [node.right, node.left]:
+            if n:
+                queue.append(n)
+    return False
+
+
+print(iterative_BFS(tree, 1))
+print(iterative_DFS(tree, 1))
 # print(DFS(tree, 11))
 # print(BFS([tree], 11))
-tree = BinaryTreeNode(3)
-left = tree.insert_left(4)
-right = tree.insert_right(2)
 
 
 def min_max_depth(node, layers):
@@ -111,4 +140,4 @@ right_right = right.insert_right(8)
 right_right_right = right_right.insert_right(9)
 right_right_right.insert_right(10)
 
-print(is_balanced(tree))
+# print(is_balanced(tree))
