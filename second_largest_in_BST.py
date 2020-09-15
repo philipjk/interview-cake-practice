@@ -21,12 +21,18 @@ def find_largest(node):
         return node
 
 
+def find_largest_iterative(node):
+    while node.right:
+        node = node.right
+    return node
+
+
 def find_second_largest(root_node):
 
     # Find the second largest item in the binary search tree
-    largest = find_largest(root_node)
+    largest = find_largest_iterative(root_node)
     if largest.left:
-        return find_largest(largest.left).value
+        return find_largest_iterative(largest.left).value
     else:
         parent = root_node
         while parent.right.value != largest.value:
