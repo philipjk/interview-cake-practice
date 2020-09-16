@@ -21,6 +21,14 @@ graph = [a, b, c]
 
 
 def color_graph(graph, colors):
+    # this solution has O(N+M) runtime complexity
+    # but O(N) space. InterviewCake's solution is O(D) space,
+    # with D number of colors.
+
+    # The problem with my solution is that I am using BFS to explore the graph,
+    # even though we know everything about it already. Using that information
+    # can save us some pùspace complexity: iterating over the graph list we
+    # would only need to store the neighbours colors to avoid them.
 
     visited_nodes = set()
 
