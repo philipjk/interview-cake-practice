@@ -1,16 +1,20 @@
-memo = {0: 0, 1: 1}
-
 
 def fib(n):
 
     if n < 0:
         raise ValueError('Index must be positive')
 
-    if n in memo:
-        return memo[n]
+    last = 1
+    second_last = 0
 
-    value = fib(n - 1) + fib(n - 2)
+    if n == 1:
+        return last
+    if n == 0:
+        return second_last
+
+    for i in range(2, n + 1):
+        second_last, last = last, last + second_last
+
     # Compute the nth Fibonacci number
-    memo[n] = value
 
-    return value
+    return last
